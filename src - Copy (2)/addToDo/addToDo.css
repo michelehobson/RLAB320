@@ -1,0 +1,53 @@
+
+/* label, input {
+    font-size: 1.5rem;
+    margin-left: 10px;
+} */
+.addToDoForm input[type='text'] {
+    font-size: 1.5rem;
+    flex-grow: 1;
+    margin-left: 10px;
+    padding: .25rem;
+    margin-right: .25rem;
+    max-width: calc(100% - 58px);
+}
+.addToDoForm {
+    width: 100%;
+    display: flex;
+}
+.item svg {
+    width: 48px;
+    min-width: 48px;
+    height: 36px;
+    font-size: 1rem;
+    color: rgb(60, 183, 183);
+    cursor: pointer;
+  }
+  
+  .item svg:focus, 
+  .item svg:hover {
+    color: red;
+    outline: none;
+  }
+  button {
+    height: 48px;
+    min-width: 48px;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    background-color: aliceblue;
+    color: rgb(60, 183, 183);
+    cursor: pointer;
+  }
+  
+  button:focus, 
+  button:hover {
+    color: white;
+    background-color: limegreen;
+    outline: none;
+  }
+  .addToDoForm label {
+    position: absolute;
+    left: -99999px;
+  }
+  
