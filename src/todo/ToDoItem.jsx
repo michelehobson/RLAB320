@@ -1,81 +1,78 @@
 import { FaTrash } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
+import { RiEdit2Fill } from "react-icons/ri";
+
 import "./toDoItem.css";
 import { useEffect, useRef, useState } from "react";
 
-const ToDoItem = ({ toDoItem, handleItemTick, handleItemDelete, handleItemEdit }) => {
-	// const [toDoItems, setToDoItems] = useState(JSON.parse(localStorage.getItem("HobsonToDoList")) || []);
-	const [toDoItems, setToDoItems] = useState(localStorage.setItem("HobsonToDoList", JSON.stringify(toDoItem)));
-
-	const [edited, setEdited] = useState(false);
+const ToDoItem = ({ id, toDoItem, checked, handleItemTick, handleItemDelete, handleItemEdit }) => {
+	const [singleToDo, setSingleToDo] = useState(toDoItem);//useState(localStorage.setItem("HobsonToDoList", JSON.stringify(toDoItem)));
+	const [edit, setEdit] = useState(false);
 	const inputRef = useRef(null);
 
 	useEffect(() => {
-		if (edited && inputRef.current) {
-			inputRef.current.focus();
+		if (edit && inputRef.current) {
 			console.log("INSIDE USE EFFECT");
+			inputRef.current.focus();
 		}
-	}, [edited]);
+	}, [edit]);
 
 	const handleEditClick = () => {
-		console.log("SETTING setEdited TRUE");
-		setEdited(true);
+		setEdit(true);
 	};
 
 	const handleEditSave = () => {
-		console.log("HANDLE EDIT SAVE");
-		handleItemEdit(toDoItem.id, toDoItem.toDoItem);
-		setEdited(false);
+		handleItemEdit(id, singleToDo);
+		setEdit(false);
 	};
 
+	const handleEditCancel = () => {
+		setSingleToDo(toDoItem);
+		setEdit(false);
+	};
+
+    
 	return (
-		<li className='toDoItem'>
+		<li className='toDoItem' key={id}>
 			<input
 				type='checkbox'
-				onChange={() => handleItemTick(toDoItem.id)}
-				checked={toDoItem.checked}
+				onChange={() => handleItemTick(id)}
+				checked={checked}
+                id={id}
 			/>
 
-			{edited ? (
+			{edit ? (
 				<>
 					<input
-						type='text'
 						ref={inputRef}
+						type='text'
 						className='edit'
-						value={toDoItem.toDoItem}
-						onChange={(e) => setToDoItems(e.target.value)}
+						value={singleToDo}
+						onChange={(e) => setSingleToDo(e.target.value)}
 					/>
-					<button
-						onClick={handleEditSave(toDoItem.id, toDoItem.toDoItem)}
-					>
-						Save
-					</button>
+					<button className='editBtn editBtnLeft' onClick={handleEditSave}>Save</button>
+					<button className='editBtn' onClick={handleEditCancel}>Cancel</button>
 				</>
+
 			) : (
+
 				<>
 					<label
-						style={
-							toDoItem.checked
-								? { textDecoration: "line-through" }
-								: null
-						}
-						onClick={() => handleItemTick(toDoItem.id)}
-					>
-						{toDoItem.toDoItem}
+						style={checked ? { textDecoration: "line-through" } : null}
+						onClick={() => handleItemTick(id)}
+					>{toDoItem}
 					</label>
-					<FaEdit
-						onClick={() =>
-							handleEditClick(toDoItem.id, toDoItem.toDoItem)
-						}
+					<RiEdit2Fill
+						onClick={() => handleEditClick()}
 						role='button'
 						tabIndex={0}
-						aria-label={`Edit ${toDoItem.toDoItem}`}
+						aria-label={`Edit ${toDoItem}`}
 					/>
 					<FaTrash
-						onClick={() => handleItemDelete(toDoItem.id)}
+						onClick={() => handleItemDelete(id)}
 						role='button'
-						tabIndex={0}
-						aria-label={`Delete ${toDoItem.toDoItem}`}
+						tabIndex={1}
+						aria-label={`Delete ${toDoItem}`}
 					/>
 				</>
 			)}

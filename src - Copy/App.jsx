@@ -4,7 +4,6 @@ import AddToDo from "./addToDo/AddToDo";
 import Content from "./content/Content";
 import Header from "./header/Header";
 import Search from './search/Search';
-import { v4 as uuid} from 'uuid';
 
 function App() {
 	const [toDoItems, setToDoItems] = useState(JSON.parse(localStorage.getItem("HobsonToDoList")) || []	);
@@ -16,7 +15,7 @@ function App() {
 	}, [toDoItems]);
 
 	const addToDo = (toDoItem) => {
-		const id = uuid();
+		const id = toDoItems.length ? toDoItems[toDoItems.length - 1].id + 1 : 1;
 		const tmp = { id, checked: false, toDoItem };
 		const toDoList = [...toDoItems, tmp];
 		setToDoItems(toDoList);
@@ -62,7 +61,7 @@ function App() {
                 setSearch={setSearch}
             />
 			<Content
-                toDoItems={toDoItems}//.filter(toDoItem => ((toDoItem.toDoItem).toLowerCase().includes(search.toLowerCase())))}
+                toDoItems={toDoItems.filter(toDoItem => ((toDoItem.toDoItem).toLowerCase().includes(search.toLowerCase())))}
                 handleItemTick={handleItemTick}
                 handleItemDelete={handleItemDelete}
                 handleItemEdit= {handleItemEdit}

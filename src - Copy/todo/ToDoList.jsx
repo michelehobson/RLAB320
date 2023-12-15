@@ -1,5 +1,6 @@
 import ToDoItem from "./ToDoItem"
 import './toDoItem.css'
+import { v4 as uuid} from 'uuid';
 
 
 const ToDoList = ( {toDoItems, handleItemTick, handleItemDelete, handleItemEdit } ) => {
@@ -15,10 +16,8 @@ const ToDoList = ( {toDoItems, handleItemTick, handleItemDelete, handleItemEdit 
     <ul>
         {toDoItems.map((toDoItem) => (
             <ToDoItem
-                key={toDoItem.id}
-                id={toDoItem.id}
-                checked={toDoItem.checked}
-                toDoItem={toDoItem.toDoItem}
+                key={uuid()}
+                toDoItem={toDoItem}
                 handleItemTick={handleItemTick}
                 handleItemDelete={handleItemDelete}
                 handleItemEdit= {handleItemEdit}
