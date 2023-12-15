@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import AddToDo from "./addToDo/AddToDo";
 import Content from "./content/Content";
@@ -22,10 +22,8 @@ function App() {
 	};
     
     const handleItemTick = (id) => {
-        // const [todo, dispatch] = useReducer(reducer, [])
-
         const toDoList = toDoItems.map((toDoItem) => 
-        toDoItem.id === id ? { ...toDoItem, checked: !toDoItem.checked } : toDoItem
+            toDoItem.id === id ? { ...toDoItem, checked: !toDoItem.checked } : toDoItem
         )
         setToDoItems(toDoList)
     }
@@ -36,17 +34,18 @@ function App() {
     }
 
     const handleItemEdit = (id, textValue) => {
-        console.log(textValue)
+        // const [todo, dispatch] = useReducer(reducer, [])
         const toDoList = toDoItems.map((toDoItem) =>
-            toDoItem.id === id ? { ...toDoItem, } : toDoItem
+            toDoItem.id === id ? { ...toDoItem, toDoItem: textValue} : toDoItem
         )
+        setToDoItems(toDoList)
     }
 
 	const handleAdd = (e) => {
 		e.preventDefault();
 		if (!newToDo) return;
         addToDo(newToDo)
-		setNewToDo("");
+		setNewToDo('');
 	};
 
 	return (
@@ -65,7 +64,7 @@ function App() {
                 toDoItems={toDoItems.filter(toDoItem => ((toDoItem.toDoItem).toLowerCase().includes(search.toLowerCase())))}
                 handleItemTick={handleItemTick}
                 handleItemDelete={handleItemDelete}
-                handleItemEdit={handleItemEdit}
+                handleItemEdit= {handleItemEdit}
 			/>
 		</div>
 	);

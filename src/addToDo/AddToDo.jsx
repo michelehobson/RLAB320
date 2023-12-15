@@ -6,7 +6,10 @@ const AddToDo = ({ newToDo, setNewToDo, handleAdd }) => {
 	const inputRef = useRef();
 
 	return (
-		<form className='addToDoForm'	onSubmit={handleAdd}>
+		<form
+			className='addToDoForm'
+			onSubmit={handleAdd}
+		>
 			<input
 				autoFocus
 				ref={inputRef}
@@ -15,7 +18,7 @@ const AddToDo = ({ newToDo, setNewToDo, handleAdd }) => {
 				placeholder='Add Task'
 				required
 				value={newToDo}
-                onChange={(e) => setNewToDo(e.target.value)}
+				onChange={(e) => setNewToDo(e.target.value)}
 			/>
 			<button
 				type='submit'

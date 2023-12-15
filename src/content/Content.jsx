@@ -9,7 +9,7 @@ const Content = ({ toDoItems, handleItemTick, handleItemDelete, handleItemEdit }
                 toDoItems={toDoItems}
                 handleItemTick={handleItemTick}
                 handleItemDelete={handleItemDelete}
-                handleItemEdit={handleItemEdit}
+                handleItemEdit= {handleItemEdit}
             />
         ) : (
             <p className="content">Bravo! You deserve a nap!!!</p>
