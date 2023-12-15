@@ -1,18 +1,16 @@
 import { FaTrash } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
-import { RiEdit2Fill } from "react-icons/ri";
 
 import "./toDoItem.css";
 import { useEffect, useRef, useState } from "react";
 
 const ToDoItem = ({ id, toDoItem, checked, handleItemTick, handleItemDelete, handleItemEdit }) => {
-	const [singleToDo, setSingleToDo] = useState(toDoItem);//useState(localStorage.setItem("HobsonToDoList", JSON.stringify(toDoItem)));
+	const [singleToDo, setSingleToDo] = useState(toDoItem);
 	const [edit, setEdit] = useState(false);
 	const inputRef = useRef(null);
 
 	useEffect(() => {
-		if (edit && inputRef.current) {
-			console.log("INSIDE USE EFFECT");
+		if (edit) {
 			inputRef.current.focus();
 		}
 	}, [edit]);
@@ -30,7 +28,6 @@ const ToDoItem = ({ id, toDoItem, checked, handleItemTick, handleItemDelete, han
 		setSingleToDo(toDoItem);
 		setEdit(false);
 	};
-
     
 	return (
 		<li className='toDoItem' key={id}>
@@ -62,7 +59,7 @@ const ToDoItem = ({ id, toDoItem, checked, handleItemTick, handleItemDelete, han
 						onClick={() => handleItemTick(id)}
 					>{toDoItem}
 					</label>
-					<RiEdit2Fill
+					<FaEdit
 						onClick={() => handleEditClick()}
 						role='button'
 						tabIndex={0}
