@@ -7,10 +7,10 @@ import Search from './search/Search';
 import { v4 as uuid} from 'uuid';
 
 function App() {
-	const [toDoItems, setToDoItems] = useState(JSON.parse(localStorage.getItem("HobsonToDoList")) || []	);
-	const [newToDo, setNewToDo] = useState("");
-	const [search, setSearch] = useState("");
 
+    const [toDoItems, setToDoItems] = useState(JSON.parse(localStorage.getItem("HobsonToDoList")) || []	);
+    const [newToDo, setNewToDo] = useState("");
+    const [search, setSearch] = useState("");
     useEffect(() => {
 		localStorage.setItem("HobsonToDoList", JSON.stringify(toDoItems));
 	}, [toDoItems]);
@@ -19,23 +19,21 @@ function App() {
 		const id = uuid();
 		const tmp = { id, checked: false, toDoItem };
 		const toDoList = [...toDoItems, tmp];
-		setToDoItems(toDoList);
+		setToDoItems(toDoList);        
 	};
-    
-    const handleItemTick = (id) => {
-        const toDoList = toDoItems.map((toDoItem) => 
-            toDoItem.id === id ? { ...toDoItem, checked: !toDoItem.checked } : toDoItem
-        )
-        setToDoItems(toDoList)
-    }
 
-    const handleItemDelete = (id) => {
-        const toDoList = toDoItems.filter((toDoItem) => toDoItem.id !== id)
-        setToDoItems(toDoList)
+    const handleItemTick = (id, toDoItem, checked) => {
+        // console.log('TIC: ' + id, checked, toDoItem)
+        // state = {id: id, toDoItem: toDoItem, checked: checked}
+        // dispatch({type: ACTIONS.TICK, payload: {id: id, toDoItem: toDoItem, checked: checked}})
+    }
+    const handleItemDelete = (id, toDoItem, checked) => {
+        // console.log('DEL: ' + id, checked, toDoItem)
+        // state = {id: id, toDoItem: toDoItem, checked: checked}
+        // dispatch({type: ACTIONS.DELETE, payload: {id: id, toDoItem: toDoItem, checked: checked}})
     }
 
     const handleItemEdit = (id, textValue) => {
-        // const [todo, dispatch] = useReducer(reducer, [])
         const toDoList = toDoItems.map((toDoItem) =>
             toDoItem.id === id ? { ...toDoItem, toDoItem: textValue} : toDoItem
         )
