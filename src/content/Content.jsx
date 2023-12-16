@@ -1,13 +1,12 @@
 import ToDoList from "../todo/ToDoList"
 import './content.css'
 
-const Content = ({ toDoItems, handleItemTick, handleItemDelete, handleItemEdit }) => {
+const Content = ({ toDoItems, handleItemDelete, handleItemEdit }) => {
   return (
     <main className="main">
         {toDoItems.length ? (
             <ToDoList 
                 toDoItems={toDoItems}
-                handleItemTick={handleItemTick}
                 handleItemDelete={handleItemDelete}
                 handleItemEdit= {handleItemEdit}
             />

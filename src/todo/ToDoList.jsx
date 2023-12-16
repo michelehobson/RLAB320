@@ -2,7 +2,7 @@ import ToDoItem from "./ToDoItem"
 import './toDoItem.css'
 
 
-const ToDoList = ( {toDoItems, handleItemTick, handleItemDelete, handleItemEdit } ) => {
+const ToDoList = ( {toDoItems, handleItemDelete, handleItemEdit } ) => {
 
     const data = [
         {checked: false, toDoItem: 'Go Shopping'},
@@ -19,7 +19,6 @@ const ToDoList = ( {toDoItems, handleItemTick, handleItemDelete, handleItemEdit 
                 id={toDoItem.id}
                 checked={toDoItem.checked}
                 toDoItem={toDoItem.toDoItem}
-                handleItemTick={handleItemTick}
                 handleItemDelete={handleItemDelete}
                 handleItemEdit= {handleItemEdit}
             />

@@ -11,7 +11,9 @@ const ACTIONS = {
     DELETE: 'delete'
 }
 
-const ToDoItem = ({ id, toDoItem, checked, handleItemTick, handleItemDelete, handleItemEdit }) => {
+let itsChecked = false;
+
+const ToDoItem = ({ id, toDoItem, checked, handleItemDelete, handleItemEdit }) => {
 	const [singleToDo, setSingleToDo] = useState(toDoItem);
 	const [edit, setEdit] = useState(false);
 	const inputRef = useRef(null);
@@ -48,6 +50,7 @@ const ToDoItem = ({ id, toDoItem, checked, handleItemTick, handleItemDelete, han
                 console.log('TICK: ' + state)
                 return state.map(todo => {
                     if(todo.id === action.payload.id) {
+                        if(action.payload.checked) itsChecked
                         return { ...todo, checked: !todo.checked}
                     }
                     return todo
@@ -66,19 +69,13 @@ const ToDoItem = ({ id, toDoItem, checked, handleItemTick, handleItemDelete, han
         checked: checked
     }
 
-    // const [state, dispatch] = useReducer(reducer, [Object.values(initialState)])
     const [state, dispatch] = useReducer(reducer, [Object.values(initialState)])
-
 
     return (
 		<li className='toDoItem' key={id}>
 			<input
 				type='checkbox'
-                // checked={state.active}
-                // checked={initialState}
-
-				onChange={(e, checked) => dispatch({type: ACTIONS.TICK, payload: {id: id, toDoItem: toDoItem, checked: checked}})}
-                id={id}
+				onChange={() => dispatch({type: ACTIONS.TICK, payload: {id: id, toDoItem: toDoItem, checked: checked}})}
 			/>
 
 			{edit ? (
@@ -96,8 +93,7 @@ const ToDoItem = ({ id, toDoItem, checked, handleItemTick, handleItemDelete, han
 			) : (
 				<>
 					<label
-						style={checked ? { textDecoration: "line-through" } : null}
-						onClick={() => handleItemTick(id, toDoItem, checked)}
+						onClick={() => dispatch({type: ACTIONS.TICK, payload: {id: id, toDoItem: toDoItem, checked: checked}})}
 					>{toDoItem}
 					</label>
 					<FaEdit

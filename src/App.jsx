@@ -22,13 +22,6 @@ function App() {
 		setToDoItems(toDoList);        
 	};
 
-    const handleItemTick = (id) => {
-        const toDoList = toDoItems.map((toDoItem) => 
-            toDoItem.id === id ? { ...toDoItem, checked: !toDoItem.checked } : toDoItem
-        )
-        setToDoItems(toDoList)
-    }
-    
     const handleItemDelete = (id) => {
         const toDoList = toDoItems.filter((toDoItem) => toDoItem.id !== id)
         setToDoItems(toDoList)
@@ -61,8 +54,7 @@ function App() {
                 setSearch={setSearch}
             />
 			<Content
-                toDoItems={toDoItems}//.filter(toDoItem => ((toDoItem.toDoItem).toLowerCase().includes(search.toLowerCase())))}
-                handleItemTick={handleItemTick}
+                toDoItems={toDoItems.filter(toDoItem => ((toDoItem.toDoItem).toLowerCase().includes(search.toLowerCase())))}
                 handleItemDelete={handleItemDelete}
                 handleItemEdit= {handleItemEdit}
 			/>

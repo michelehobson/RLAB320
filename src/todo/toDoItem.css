@@ -52,6 +52,9 @@ ul {
   .toDoItem input[type="checkbox"]:focus + label {
     text-decoration: underline;
   }
+  .toDoItem input[type="checkbox"]:checked + label {
+    text-decoration: line-through;
+  }
   
   .toDoItem > label {
     font-family: 'Kay Pho Du', sans-serif;
