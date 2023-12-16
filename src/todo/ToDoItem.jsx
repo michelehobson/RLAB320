@@ -47,36 +47,38 @@ const ToDoItem = ({ id, toDoItem, checked, handleItemTick, handleItemDelete, han
             case ACTIONS.TICK:
                 console.log('TICK: ' + state)
                 return state.map(todo => {
-                    todo.id === action.payload.id ? { ...todo, checked: !todo.checked } : todo
+                    if(todo.id === action.payload.id) {
+                        return { ...todo, checked: !todo.checked}
+                    }
+                    return todo
                 })
             case ACTIONS.DELETE:
-                console.log(state)
+                console.log('DELETE: ' + state)
                 return state.filter(todo => todo.id !== action.payload.id)
             default:
                 return state;
         }
     }
-     
+ 
     const initialState = {
         id: id,
         toDoItem: toDoItem,
         checked: checked
     }
-    // console.log('initialState: ' + Object.values(initialState))
-   
-    
+
     // const [state, dispatch] = useReducer(reducer, [Object.values(initialState)])
     const [state, dispatch] = useReducer(reducer, [Object.values(initialState)])
+
 
     return (
 		<li className='toDoItem' key={id}>
 			<input
-                id={id}
 				type='checkbox'
-                value={state.checked}
-				onChange={(e) => dispatch({type: ACTIONS.TICK, payload: e.target.value})}
-				// onChange={() => dispatch({type: ACTIONS.TICK, payload: Object.values(initialState)})}//handleItemTick(id, toDoItem, checked)}
-				// checked={checked}
+                // checked={state.active}
+                // checked={initialState}
+
+				onChange={(e, checked) => dispatch({type: ACTIONS.TICK, payload: {id: id, toDoItem: toDoItem, checked: checked}})}
+                id={id}
 			/>
 
 			{edit ? (

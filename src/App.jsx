@@ -22,15 +22,16 @@ function App() {
 		setToDoItems(toDoList);        
 	};
 
-    const handleItemTick = (id, toDoItem, checked) => {
-        // console.log('TIC: ' + id, checked, toDoItem)
-        // state = {id: id, toDoItem: toDoItem, checked: checked}
-        // dispatch({type: ACTIONS.TICK, payload: {id: id, toDoItem: toDoItem, checked: checked}})
+    const handleItemTick = (id) => {
+        const toDoList = toDoItems.map((toDoItem) => 
+            toDoItem.id === id ? { ...toDoItem, checked: !toDoItem.checked } : toDoItem
+        )
+        setToDoItems(toDoList)
     }
-    const handleItemDelete = (id, toDoItem, checked) => {
-        // console.log('DEL: ' + id, checked, toDoItem)
-        // state = {id: id, toDoItem: toDoItem, checked: checked}
-        // dispatch({type: ACTIONS.DELETE, payload: {id: id, toDoItem: toDoItem, checked: checked}})
+    
+    const handleItemDelete = (id) => {
+        const toDoList = toDoItems.filter((toDoItem) => toDoItem.id !== id)
+        setToDoItems(toDoList)
     }
 
     const handleItemEdit = (id, textValue) => {
