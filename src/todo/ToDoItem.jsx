@@ -11,8 +11,6 @@ const ACTIONS = {
     DELETE: 'delete'
 }
 
-let itsChecked = false;
-
 const ToDoItem = ({ id, toDoItem, checked, handleItemDelete, handleItemEdit }) => {
 	const [singleToDo, setSingleToDo] = useState(toDoItem);
 	const [edit, setEdit] = useState(false);
@@ -41,22 +39,24 @@ const ToDoItem = ({ id, toDoItem, checked, handleItemDelete, handleItemEdit }) =
     const reducer = (state, action) => {
         switch(action.type) {
             case ACTIONS.ADD:
+                // NOT CODED
                 return { ...state, }
             case ACTIONS.EDIT:
+                // NOT CODED, STILL USING APP.JSX FOR EDIT
                 return state.map(todo => {
                     todo.id === action.payload.id ? { ...todo, todo: action.payload.textValue} : todo
             })            
             case ACTIONS.TICK:
-                console.log('TICK: ' + state)
+                // console.log('TICK: ' + state)
                 return state.map(todo => {
                     if(todo.id === action.payload.id) {
-                        if(action.payload.checked) itsChecked
                         return { ...todo, checked: !todo.checked}
                     }
                     return todo
                 })
             case ACTIONS.DELETE:
-                console.log('DELETE: ' + state)
+                // console.log('DELETE: ' + state)
+                // WON'T DELETE LINE 
                 return state.filter(todo => todo.id !== action.payload.id)
             default:
                 return state;
@@ -75,7 +75,8 @@ const ToDoItem = ({ id, toDoItem, checked, handleItemDelete, handleItemEdit }) =
 		<li className='toDoItem' key={id}>
 			<input
 				type='checkbox'
-				onChange={() => dispatch({type: ACTIONS.TICK, payload: {id: id, toDoItem: toDoItem, checked: checked}})}
+				onChange={() => dispatch({type: ACTIONS.TICK, payload: {id: id}})}
+                // WILL TOGGLE CHECKBOX BUT DOES STATE IS NOT CHANGING
 			/>
 
 			{edit ? (
@@ -93,7 +94,7 @@ const ToDoItem = ({ id, toDoItem, checked, handleItemDelete, handleItemEdit }) =
 			) : (
 				<>
 					<label
-						onClick={() => dispatch({type: ACTIONS.TICK, payload: {id: id, toDoItem: toDoItem, checked: checked}})}
+						onClick={() => dispatch({type: ACTIONS.TICK, payload: {id: id}})}
 					>{toDoItem}
 					</label>
 					<FaEdit
@@ -103,7 +104,8 @@ const ToDoItem = ({ id, toDoItem, checked, handleItemDelete, handleItemEdit }) =
 						aria-label={`Edit ${toDoItem}`}
 					/>
 					<FaTrash
-						onClick={() => handleItemDelete(id, toDoItem, checked)}
+						onClick={()=> handleItemDelete(id, toDoItem, checked)}
+						// onClick={()=> dispatch({type: ACTIONS.DELETE, payload: {id: id}})} // WILL NOT DELETE
 						role='button'
 						tabIndex={0 }
 						aria-label={`Delete ${toDoItem}`}

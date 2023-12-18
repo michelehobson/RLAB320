@@ -13,7 +13,6 @@ const AddToDo = ({ newToDo, setNewToDo, handleAdd }) => {
 			<input
 				autoFocus
 				ref={inputRef}
-				id='addToDo'
 				type='text'
 				placeholder='Add Task'
 				required
